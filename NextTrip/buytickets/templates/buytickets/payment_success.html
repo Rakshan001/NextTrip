@@ -1,0 +1,203 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Your Ticket Details</title>
+</head>
+<body>
+    <h1>Your Most Recent Ticket Details</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Users</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Verified</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ latest_ticket.user }}</td>
+                <td>{{ latest_ticket.origin }}</td>
+                <td>{{ latest_ticket.destination }}</td>
+                <td>{{ latest_ticket.date }}</td>
+                <td>{{ latest_ticket.time }}</td>
+                <td>
+                    {% if latest_ticket.is_verified %}
+                        Verified
+                    {% else %}
+                        Not Verified
+                    {% endif %}
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html> -->
+
+
+
+
+<!-- ############################################################ -->
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Your Most Recent Ticket Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-center mt-4">Your Most Recent Ticket Details</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User: {{ latest_ticket.user }}</h5>
+                        <p class="card-text">Origin: {{ latest_ticket.origin }}</p>
+                        <p class="card-text">Destination: {{ latest_ticket.destination }}</p>
+                        <p class="card-text">Date: {{ latest_ticket.date }}</p>
+                        <p class="card-text">Time: {{ latest_ticket.time }}</p>
+                        <p class="card-text">Ticket Number: {{ latest_ticket.ticket_number }}</p>
+
+                        <p class="card-text">Verified: {% if latest_ticket.is_verified %}Verified{% else %}Not Verified{% endif %}</p>
+                        
+                       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+ -->
+
+
+
+
+ <!-- ########################################################## -->
+ {% load static %}
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Your Most Recent Ticket Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .logo-img {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /
+    }
+
+    .logo-img img {
+     margin-top: 10px; /*Adjust as needed to position the image */
+     margin-bottom: -50px;
+    }
+        .card {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .card-text {
+            font-size: 18px;
+            color: #343a40;
+        }
+
+        .verified {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .not-verified {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .review{
+            margin-bottom: -20px;
+        }
+        p{
+            font-weight: bold;
+        }
+
+        a {
+      /* font-size: 24px; */
+      font-family: Arial, sans-serif;
+      animation: changeColor 1s infinite; /* Use CSS animation to continuously change color */
+    }
+
+    /* Keyframes for changing color */
+    @keyframes changeColor {
+      0% { color: red; } /* Start with red */
+      50% { color: blue; } /* Change to blue at halfway */
+      100% { color: green; } /* Change to green at end */
+    }
+    </style>
+</head>
+<body>
+    <a class="navbar-brand logo-img" href="#"><img src="{% static 'loginpage/Next Trip black.png' %}" alt="logo" width="100" height="100" ></a>
+
+    <h1 class="text-center mt-4">Your Most Recent Ticket Details</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User: {{ latest_ticket.user }}</h5>
+                        <p class="card-text">Ticket ID: {{ latest_ticket.id }}</p> <!-- Display ticket ID here -->
+                        <p class="card-text">Bus: {{ latest_ticket.bus.name }}</p> <!-- Display bus name here -->
+                        <p class="card-text">Bus reg_number: {{ latest_ticket.bus.reg_number }}</p> 
+                
+                        <p class="card-text">Origin: {{ latest_ticket.origin }}</p>
+                        <p class="card-text">Destination: {{ latest_ticket.destination }}</p>
+                        <p class="card-text">Date: {{ latest_ticket.date }}</p>
+                        <p class="card-text">Time: {{ latest_ticket.time }}</p>
+                        <p class="card-text">Ticket Number: {{ latest_ticket.ticket_number }}</p>
+                
+                        {% if latest_ticket.is_verified %}
+                            <p class="card-text verified">Verified</p>
+                        {% else %}
+                            <p>Your ticket is awaiting verification by a manager.</p>
+                            <p class="card-text not-verified">Not Verified</p>
+                        {% endif %}
+                        <p class="review changingColor" id="changingColor"><a href="{% url 'reviews:review_form' %}"> review your journey</a></p>
+                        <!-- Add more fields as needed -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

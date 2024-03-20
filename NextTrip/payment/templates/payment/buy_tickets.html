@@ -1,0 +1,164 @@
+
+
+
+{% load static %}
+
+
+<!-- ######################################################## -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Ticket</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .logo-img {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /
+    }
+
+    .logo-img img {
+     margin-top: 10px; /*Adjust as needed to position the image */
+    }
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .form-container:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-col {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .form-label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+            appearance: none;
+            background: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat right 10px center;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(to right, #f127e6, #f5af19);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            opacity: 0.9;
+        }
+
+        .error {
+            color: red;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a class="navbar-brand logo-img" href="#"><img src="{% static 'loginpage/Next Trip black.png' %}" alt="logo" width="100" height="100" ></a>
+
+    <h1 class="text-center mt-4">Buy Your Ticket</h1>
+    <p class="text-center">Welcome, {{ user_name }}</p>
+    <div class="form-container">
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="bus" class="form-label">Bus Name:</label>
+                    <select id="bus" name="bus" class="form-select">
+                        <!-- Populate options dynamically from Django view -->
+                        {% for bus in available_buses %}
+                            <option value="{{ bus.id }}">{{ bus.number }} - {{ bus.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="cost" class="form-label">Cost:</label>
+                    <input type="number" id="cost" name="cost" class="form-input" oninput="updateTotal()">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="origin" class="form-label">Origin Station:</label>
+                    <select id="origin" name="origin" class="form-select">
+                        {% for station in origin_stations %}
+                            <option value="{{ station.id }}">{{ station.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="destination" class="form-label">Destination Station:</label>
+                    <select id="destination" name="destination" class="form-select">
+                        {% for station in destination_stations %}
+                            <option value="{{ station.id }}">{{ station.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="date" class="form-label">Date:</label>
+                    <input type="date" id="date" name="date" value="{{ form.initial.date }}" class="form-input">
+                </div>
+                <div class="form-col">
+                    <label for="time" class="form-label">Time:</label>
+                    <input type="time" id="time" name="time" value="{{ form.initial.time }}" class="form-input">
+                </div>
+            </div>
+            <button type="submit" class="form-button">Pay Now</button>
+        </form>
+    </div>
+
+    <script>
+        function updateTotal() {
+            var cost = document.getElementById('cost').value;
+            var totalAmount = parseFloat(cost).toFixed(2); // Convert to float and round to 2 decimal places
+            var totalElement = document.getElementById('total_amount');
+            totalElement.textContent = totalAmount;
+        }
+    </script>
+</body>
+
+

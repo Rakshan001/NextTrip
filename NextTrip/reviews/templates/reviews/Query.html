@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+ .thankyou-badge {
+  /* display: none; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #28a745; /* Green background color */
+  color: #fff; /* White text color */
+  border-radius: 10px;
+  text-align: center;
+  font-size: 24px;
+  z-index: 1000;
+}
+    </style>
+</head>
+<body>
+    <div class="thankyou-badge" id="thankyouBadge">
+        Thank you for submitting the response!
+      </div>
+     
+      <script> // Function to show the "Thank you" badge
+        function showThankYouBadge() {
+            var thankyouBadge = document.getElementById('thankyouBadge');
+            thankyouBadge.style.display = 'block';
+    
+            // Hide the badge after 3 seconds (adjust the timeout as needed)
+            setTimeout(function () {
+                thankyouBadge.style.display = 'none';
+            }, 3000);
+        }</script>
+</body>
+</html>
