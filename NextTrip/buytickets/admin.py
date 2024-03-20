@@ -20,6 +20,6 @@ from .models import Ticket
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('id', 'bus', 'origin', 'destination', 'is_verified')
     list_filter = ('bus','date','is_verified')  # Add this line to enable filtering by bus
-    
+    list_per_page=10
 
 admin.site.register(Ticket, TicketAdmin)
