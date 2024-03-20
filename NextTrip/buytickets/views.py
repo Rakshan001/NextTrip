@@ -161,16 +161,12 @@ def buy_ticket(request):
 
 
 
+from django.conf import settings
 
 
 
 
-
-
-
-
-
-
+import paypalrestsdk
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import TicketForm
@@ -178,6 +174,13 @@ from .models import Ticket
 from django.contrib.auth.decorators import login_required
 from nextbus.models import Station, Bus
 import uuid
+
+# Configure PayPal SDK
+paypalrestsdk.configure({
+    "mode": "sandbox",  # Change to "live" for production
+    "client_id": settings.PAYPAL_CLIENT_ID,
+    "client_secret": settings.PAYPAL_SECRET,
+})
 
 @login_required
 def paypalbuy_ticket(request):
@@ -194,20 +197,40 @@ def paypalbuy_ticket(request):
             ticket.save()
             # Retrieve the cost from the form data
             cost = request.POST.get('cost')
-            # Now you can use the cost variable as needed, such as for processing payment
             
-            # Here, you can process the payment with PayPal or any other gateway
-            
-            # Redirect the user to the payment success page
-            return redirect(reverse('buytickets:payment_success'))
+            # Create a PayPal payment object
+            payment = paypalrestsdk.Payment({
+                "intent": "sale",
+                "payer": {
+                    "payment_method": "paypal",
+                },
+                "redirect_urls": {
+                    "return_url": request.build_absolute_uri(reverse('execute_payment')),
+                    "cancel_url": request.build_absolute_uri(reverse('payment_failed')),
+                },
+                "transactions": [
+                    {
+                        "amount": {
+                            "total": cost,
+                            "currency": "USD",
+                        },
+                        "description": "Payment for Bus Ticket",
+                    }
+                ],
+            })
+
+            # Create the PayPal payment
+            if payment.create():
+                return redirect(payment.links[1].href)  # Redirect to PayPal for payment
+            else:
+                return render(request, 'payment/payment_failed.html')
 
     else:
         form = TicketForm()
     return render(request, 'buytickets/paypalbuy_ticket.html', {'form': form, 'user_name': request.user.username,
-                                                          'origin_stations': origin_stations,
-                                                          'destination_stations': destination_stations,
-                                                          'available_buses': available_buses})
-
+                                                      'origin_stations': origin_stations,
+                                                      'destination_stations': destination_stations,
+                                                      'available_buses': available_buses})
 
 
 
