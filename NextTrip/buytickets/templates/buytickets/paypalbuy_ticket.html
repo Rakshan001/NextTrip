@@ -89,72 +89,61 @@
             text-align: center;
         }
     </style>
-</head>
-<body>
-    <a class="navbar-brand logo-img" href="#"><img src="{% static 'loginpage/Next Trip black.png' %}" alt="logo" width="100" height="100" ></a>
-
-    <h1 class="text-center mt-4">Buy Your Ticket</h1>
-    <p class="text-center">Welcome, {{ user_name }}</p>
-    <div class="form-container">
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-    <form action="{% url 'create_payment' %}" method="POST">
-
-            {% csrf_token %}
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="bus" class="form-label">Bus Name:</label>
-                    
-                    <select id="bus" name="bus" class="form-select">
-                    
-                        <!-- Populate options dynamically from Django view -->
-                        {% for bus in available_buses %}
-                    <option value="{{ bus.id }}">{{ bus.number }} - {{ bus.name }}</option>
-                {% endfor %}
-                    </select>
-                </div>
-                <div class="form-col">
-                    <label for="cost" class="form-label">Cost:</label>
-
-                    <input type="number" id="cost" name="cost" class="form-input">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="origin" class="form-label">Origin Station:</label>
-                    <select id="origin" name="origin" class="form-select">
-                        {% for station in origin_stations %}
-                            <option value="{{ station.id }}">{{ station.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-col">
-                    <label for="destination" class="form-label">Destination Station:</label>
-                    <select id="destination" name="destination" class="form-select">
-                        {% for station in destination_stations %}
-                            <option value="{{ station.id }}">{{ station.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="date" class="form-label">Date:</label>
-                    <input type="date" id="date" name="date" value="{{ form.initial.date }}" class="form-input">
-                </div>
-                <div class="form-col">
-                    <label for="time" class="form-label">Time:</label>
-                    <input type="time" id="time" name="time" value="{{ form.initial.time }}" class="form-input">
-                </div>
-            </div>
-            <button type="submit" class="form-button">Pay Now</button>
-        </form>
-    </div>
-
+    <body>
+        <a class="navbar-brand logo-img" href="#"><img src="{% static 'loginpage/Next Trip black.png' %}" alt="logo" width="100" height="100"></a>
     
-
-</body>
-</html>
-
-
+        <h1 class="text-center mt-4">Buy Your Ticket</h1>
+        <p class="text-center">Welcome, {{ user_name }}</p>
+        <div class="form-container">
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+            <form action="{% url 'buytickets:paypalbuy_ticket' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="bus" class="form-label">Bus Name:</label>
+                        <select id="bus" name="bus" class="form-select">
+                            {% for bus in available_buses %}
+                                <option value="{{ bus.id }}">{{ bus.number }} - {{ bus.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label for="cost" class="form-label">Cost:</label>
+                        <input type="number" id="cost" name="cost" class="form-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="origin" class="form-label">Origin Station:</label>
+                        <select id="origin" name="origin" class="form-select">
+                            {% for station in origin_stations %}
+                                <option value="{{ station.id }}">{{ station.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label for="destination" class="form-label">Destination Station:</label>
+                        <select id="destination" name="destination" class="form-select">
+                            {% for station in destination_stations %}
+                                <option value="{{ station.id }}">{{ station.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="date" class="form-label">Date:</label>
+                        <input type="date" id="date" name="date" value="{{ form.initial.date }}" class="form-input">
+                    </div>
+                    <div class="form-col">
+                        <label for="time" class="form-label">Time:</label>
+                        <input type="time" id="time" name="time" value="{{ form.initial.time }}" class="form-input">
+                    </div>
+                </div>
+                <button type="submit" class="form-button">Pay Now</button>
+            </form>
+        </div>
+    </body>
+    </html>

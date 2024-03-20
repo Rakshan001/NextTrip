@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'payment',
     # 'admin_material.apps.AdminMaterialDashboardConfig',
     
-    
+    # admin pannel jazmin
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -147,3 +148,14 @@ PAYPAL_SECRET_KEY = 'EAFFiBA1HY7-ymFSaEgn2I-DA125a45STD_lzf5JwLwSnWgIFkMJcFJGofZ
 
 PAYPAL_CLIENT_ID = 'AQGvJ_CKEFrsJ0CqRMjPsi4yO9CgpbbRJ153Z8fnbQ8Ahu9LaxD48MInq3ShpiU-brKnS-Qyl1jOat01'
 PAYPAL_SECRET = 'EAFFiBA1HY7-ymFSaEgn2I-DA125a45STD_lzf5JwLwSnWgIFkMJcFJGofZed_3RY4ZbMrJl8WmyQqNQ'
+
+
+
+# Jazzmin Admin pannel cutomization
+JAZZMIN_SETTINGS = {
+'site_header':"NextTrip Dashboard",
+'site_brand':"NextTRip Dashboard",
+'site_logo': "nextbus/Next Trip black.png", 
+'copyright': "held by Rakshan and Anshu",
+
+}
