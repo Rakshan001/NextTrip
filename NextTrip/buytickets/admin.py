@@ -38,7 +38,7 @@ from .models import Ticket
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('id', 'bus', 'origin', 'destination', 'is_verified','cost')
     list_filter = ('bus','date','is_verified')  # Add this line to enable filtering by bus
-    list_per_page=10
+    # list_per_page=10
     actions = [calculate_total_cost]
 
 admin.site.register(Ticket, TicketAdmin)
