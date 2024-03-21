@@ -155,7 +155,7 @@ PAYPAL_SECRET = 'EAFFiBA1HY7-ymFSaEgn2I-DA125a45STD_lzf5JwLwSnWgIFkMJcFJGofZed_3
 JAZZMIN_SETTINGS = {
 'site_header':"NextTrip Dashboard",
 'site_brand':"NextTRip Dashboard",
-'site_logo': "nextbus/Next Trip black.png", 
+'site_logo': "nextbus/NT.png", 
 'copyright': "held by Rakshan and Anshu",
 
 }
