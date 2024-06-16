@@ -6,13 +6,13 @@
     "version": 2,
     "builds": [
       {
-        "src": "NextTrip/wsgi.py",
+        "src": "NextTrip/NextTrip/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "50mb" }
       }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "NextTrip/wsgi.py" }
+      { "src": "/(.*)", "dest": "NextTrip/NextTrip/wsgi.py" }
     ]
   }
   
