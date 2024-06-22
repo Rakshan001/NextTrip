@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Hamburger Menu{% endblock %}</title>
+<style>
+    /* Hamburger menu styles */
+    .navbar-toggle {
+        display: none;
+    }
+    .navbar-toggle-label {
+        cursor: pointer;
+        display: block;
+        padding: 15px 20px;
+        position: relative;
+        z-index: 2;
+    }
+    .navbar-toggle-label span {
+        background-color: #333;
+        display: block;
+        height: 3px;
+        margin-bottom: 5px;
+        transition: ease-out 0.5s;
+        width: 25px;
+    }
+    .navbar-toggle:checked + .navbar-toggle-label span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .navbar-toggle:checked + .navbar-toggle-label span:nth-child(2) {
+        opacity: 0;
+    }
+    .navbar-toggle:checked + .navbar-toggle-label span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+    .navbar-links {
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: none;
+        left: 0;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        z-index: 1;
+    }
+    .navbar-links.active {
+        display: block;
+    }
+    .navbar-links ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar-links ul li {
+        border-bottom: 1px solid #ddd;
+    }
+    .navbar-links ul li:last-child {
+        border-bottom: none;
+    }
+    .navbar-links ul li a {
+        color: #333;
+        display: block;
+        padding: 15px 20px;
+        text-decoration: none;
+    }
+
+    /* Dropdown button styles */
+    .dropbtn {
+        background-color: transparent;
+        color: #333;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Dropdown content */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown-content a:hover {
+        background-color: #f9f9f9;
+    }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+    <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+    <label for="navbar-toggle" class="navbar-toggle-label">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <div class="navbar-links">
+        <ul class="nav nav-pills justify-content-end p-1 me-5 mt-2">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'admin:index' %}">Admin</a>
+            </li>
+            <li class="nav-item dropdown">
+                <button class="dropbtn">Dropdown</button>
+                <div class="dropdown-content">
+                    <a href="{% url 'search_buses' %}">NextBus</a>
+                    <a href="{% url 'buytickets:buy_ticket' %}">Buy Ticket</a>
+                    <a href="{% url 'logout' %}">Sign Out</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">LogOut</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% block body %}
+{% endblock %}
+
+<script>
+    var toggle = document.getElementById('navbar-toggle');
+    var navbarLinks = document.querySelector('.navbar-links');
+    
+    toggle.addEventListener('change', function() {
+        if (toggle.checked) {
+            navbarLinks.classList.add('active');
+        } else {
+            navbarLinks.classList.remove('active');
+        }
+    });
+
+    // Toggle dropdown content
+    var dropbtn = document.querySelector('.dropbtn');
+    var dropdownContent = document.querySelector('.dropdown-content');
+
+    dropbtn.addEventListener('click', function() {
+        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+    });
+</script>
+
+</body>
+</html>

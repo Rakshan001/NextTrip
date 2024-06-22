@@ -1,0 +1,186 @@
+{% extends 'loginpage/layout.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      background: linear-gradient(90deg, #880fc4 0%, #1d39f2 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'raleway', sans-serif;
+      color: #fff;
+    }
+
+    .wrapper h1 {
+      font-size: 60px;
+      font-weight: 500;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .wrapper h5 {
+      font-size: 20px;
+      text-align: center;
+      font-weight: 300;
+      margin-bottom: 90px;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      /* Allow cards to wrap to the next line */
+      width: 80%;
+      /* Adjust the width as needed */
+      margin: 0 auto;
+    }
+
+    .card {
+      width: 350px;
+      height: 250px;
+      border-radius: 15px;
+      margin: 7px;
+      padding: 20px 30px;
+      position: relative;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 10px 20px 25px rgba(0, 0, 0, 0.2);
+      transition: 0.5s;
+      margin-bottom: 10rem;
+    }
+
+    .card img {
+      height: 90px;
+      width: 90px;
+      border: 2px solid #f2f2f2;
+      border-radius: 50%;
+      position: absolute;
+      top: -90px;
+      left: 50px;
+    }
+
+    .card p {
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 2px;
+    }
+
+    .card h4 {
+      color: #333;
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    .card #quote {
+      font-size: 60px;
+      position: absolute;
+      bottom: 20px;
+      right: 25px;
+      color: #b2bec3;
+    }
+
+    .card:hover {
+      transform: scale(1.4);
+      color: rgb(129, 129, 129);
+      background: #fffefe;
+      z-index: 10000;
+    }
+
+    .card .rating {
+      display: flex;
+      align-items: center;
+    }
+
+    .card .rating #star {
+      font-size: 1.2em;
+      color: #f0a202;
+      margin-right: 5px;
+      margin-bottom: 15px;
+    }
+
+    .card .rating span {
+      font-weight: bold;
+    }
+
+
+    /* *******Responsive******** */
+    @media(max-width:768px) {
+      .cards {
+        width: 100%;
+      }
+
+      .card {
+        margin: 40px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Our Happy Customer Reviews</h1>
+    <h5>Check what they say about us...</h5>
+    <div class="cards">
+      {% for review in reviews %}
+      <div class="card">
+        <img src="{% static 'loginpage/Next Trip white.png' %}" alt="bus img">
+
+        <p>{{ bus_name }}</p>
+        
+      
+          <p>Bus: {{ review.bus }}</p>
+          <p>Bus: {{ bus_details.0.number }}
+    
+          <p>Register Number: {{ bus_details.0.reg_number }}</p>
+          
+        <p class="comment">Comment: {{ review.comment }}</p>
+        <div class="rating">
+          {% for _ in "x"|rjust:review.rating %}
+          <i class="fas fa-star" id="star"></i>
+          {% endfor %}
+          <!-- <span>{{ review.rating }}/5</span> -->
+        </div>
+        <h4>{{ review.user }}</h4>
+        <i class="fa fa-quote-left" id="quote"></i>
+      </div>
+      {% empty %}
+      <p>No reviews found for this bus.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+
+
+
+
+
+</body>
+
+</html>
+{% endblock %}

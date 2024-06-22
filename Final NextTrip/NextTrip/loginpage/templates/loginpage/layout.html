@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!-- Include Remixicons CSS for icons -->
+   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+
+   <!-- Include your custom CSS file -->
+   <link rel="stylesheet" href="{% static 'loginpage/styles.css' %}">
+
+   <title>Next Trip</title>
+</head>
+<body>
+   <!-- HEADER -->
+   <header class="header">
+      <nav class="nav container">
+         <div class="nav__data">
+            <a href="#" class="nav__logo">
+               <!-- <i class="ri-planet-line"></i> -->
+               <i class="ri-bus-fill"></i> NextTrip
+            </a>
+            
+            <!-- Nav toggle button for mobile -->
+            <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-line nav__burger"></i>
+               <i class="ri-close-line nav__close"></i>
+            </div>
+         </div>
+
+         <!-- NAV MENU -->
+         <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+               <li><a href="{% url 'home' %}" class="nav__link">Home</a></li>
+
+               <li><a href="{% url 'search_buses' %}" class="nav__link">Search Bus</a></li>
+
+               <!-- DROPDOWN 1 -->
+               <li class="dropdown__item">
+                  <div class="nav__link">
+                     Ticket Booking <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
+
+                  <ul class="dropdown__menu">
+                     <li>
+                        <a href="{% url 'buytickets:buy_ticket' %}" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Buy Ticket
+                        </a>                          
+                     </li>
+
+                     <li>
+                        <a href="{% url 'buytickets:paypalbuy_ticket' %}" class="dropdown__link">
+                           <i class="ri-arrow-up-down-line"></i> UPI payment
+                        </a>
+                     </li>
+
+                     <!-- DROPDOWN SUBMENU -->
+                     <li class="dropdown__subitem">
+                        <div class="dropdown__link">
+                           <i class="ri-bar-chart-line"></i> Ticket Details <i class="ri-add-line dropdown__add"></i>
+                        </div>
+
+                        <ul class="dropdown__submenu">
+                           <li>
+                              <a  href="{% url 'buytickets:ticket_details' %}" class="dropdown__sublink">
+                                 <i class="ri-file-list-line"></i> Ticket History
+                              </a>
+                           </li>
+
+                           <li>
+                              <a href="{% url 'buytickets:ticket_details' %}" class="dropdown__sublink">
+                                 <i class="ri-cash-line"></i> Payments
+                              </a>
+                           </li>
+
+                           <li>
+                              <a href="#" class="dropdown__sublink">
+                                 <i class="ri-refund-2-line"></i> Refunds
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               
+               <li><a href="{% url 'buytickets:ticket_details' %}" class="nav__link">Ticket History</a></li>
+
+               <!-- DROPDOWN 2 -->
+               <li class="dropdown__item">
+                  <div class="nav__link">
+                     Users <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
+
+                  <ul class="dropdown__menu">
+                     <li>
+                        <a href="{% url 'logout' %}" class="dropdown__link">
+                           <i class="ri-user-line"></i> Logout
+                        </a>                          
+                     </li>
+
+                     <li>
+                        <a href="{% url 'admin:index' %}" class="dropdown__link">
+                           <i class="ri-lock-line"></i> Admin Login
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="#" class="dropdown__link">
+                           <i class="ri-message-3-line"></i> Query
+                        </a>
+                     </li>
+                  </ul>
+               </li>
+
+               <li><a href="#" class="nav__link">Contact</a></li>
+            </ul>
+         </div>
+      </nav>
+   </header>
+
+   <!-- BODY CONTENT -->
+   {% block body %}
+
+   {% endblock %}
+
+   <!-- Include your custom JavaScript file -->
+   <script src="{% static 'loginpage/script.js' %}"></script>
+</body>
+</html>

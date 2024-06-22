@@ -1,0 +1,174 @@
+{% extends 'loginpage/layout.html' %}
+{% load static %}
+
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Review Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3a3a3a;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h2{
+            text-align: center;
+        }
+        .review-form {
+            width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating{
+            display: flex;
+            flex-direction: row-reverse; /* Align stars from right to left */
+        }
+
+        .rating label {
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            font-size: 25px;
+            color: #ccc;
+            margin-right: 5px; /* Adjust margin         to separate stars */
+}
+
+        .rating label:hover,
+        .rating input:checked ~ label {
+            color: #fdd835;
+}
+
+        .rating input:checked ~ label {
+            color: #fdd835;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .review-form ::before{
+            content: '';
+            position: absolute;
+            top: -76px;
+            left: 0;
+            height: 70px;
+            width: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, rgba(255,255,255,.15), transparent);
+        }
+        .close {
+    position: relative;
+    top: 10px;
+    left: 380px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .logodiv{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 50px;
+    /* padding: 3px; */
+    margin-top: 5.5rem;
+
+  }
+  .logodiv img{
+    width: 100px;
+    height: auto;
+    /* height: 50%; */
+  }
+    </style>
+</head>
+<body>
+
+    <div class="logodiv">
+        <img src="{% static 'loginpage/Next Trip black.png' %}"alt="logo" id="logo"/>
+    </div>
+    <div class="review-form">
+    
+    
+    <h2>Bus Review Form</h2>
+    <form   method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_bus">Bus:</label>
+            {{ form.bus }}
+        </div>
+
+      
+        <label for="">Rate:</label>
+        <div class="form-group rating">
+            <input type="radio" id="driverRating1" name="rating" value="5" required>
+            <label for="driverRating1">★</label>
+            <input type="radio" id="driverRating2" name="rating" value="4">
+            <label for="driverRating2">★</label>
+            <input type="radio" id="driverRating3" name="rating" value="3">
+            <label for="driverRating3">★</label>
+            <input type="radio" id="driverRating4" name="rating" value="2">
+            <label for="driverRating4">★</label>
+            <input type="radio" id="driverRating5" name="rating" value="1">
+            <label for="driverRating5">★</label>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="comment">Additional Comments:</label>
+            <textarea id="comment" name="comment" rows="4"></textarea>
+        </div>
+
+        <button type="submit">Submit Review</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+{% endblock %}
